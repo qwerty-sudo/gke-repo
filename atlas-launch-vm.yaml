@@ -6,7 +6,7 @@ metadata:
     io.kompose.service: atlas-launchvm
     app.name: atlas-launchvm
   name: atlas-launchvm
-  namespace: atlas-updated
+  namespace: atlas
 spec:
   replicas: 1
   template:
@@ -38,7 +38,7 @@ spec:
         - name: POSTGRES_HOST
           value: atlas-postgres-postgresql
         - name: POSTGRES_PASSWORD
-          value: "elXOzwz0Bh"
+          value: bi0Gl3nml7
         - name: POSTGRES_PORT
           value: "5432"
         - name: POSTGRES_USER
