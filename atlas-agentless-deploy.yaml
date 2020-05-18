@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Deployment #deployment
+metadata:
+  annotations:
+  labels:
+    io.kompose.service: atlas-agentless
+  name: atlas-agentless
+  namespace: atlas
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        io.kompose.service: atlas-agentless
+        app: atlas-agentless
+    spec:
+      containers:
+      - env:
+        - name: IMPORT_URI
+          value: http://10.0.1.43:31376/importexport/vault/get
+        - name: MONGO_URI
+          value: http://10.0.1.43:31376/importexport/vault/datasource
+        image: discovery.azurecr.io/atlas-agentless:v2.1
+        name: atlas-agentless
+        ports:
+        - containerPort: 5000
+        resources: {}
+      imagePullSecrets:
+      - name: acr-access-secret-discovery
+      restartPolicy: Always

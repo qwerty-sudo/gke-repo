@@ -1,0 +1,90 @@
+apiVersion: batch/v1beta1
+
+kind: CronJob
+
+metadata:
+
+  labels:
+
+    app: atlas-agentless-cj
+
+  name: atlas-agentless-cj
+
+  namespace: atlas
+
+
+spec:
+
+  concurrencyPolicy: Forbid
+
+  failedJobsHistoryLimit: 3
+
+  jobTemplate:
+
+    metadata:
+
+      creationTimestamp: null
+
+    spec:
+
+      template:
+
+        metadata:
+
+          creationTimestamp: null
+
+        spec:
+
+          containers:
+
+          - envFrom:
+
+            - configMapRef:
+
+                name: atlas-agentless-env
+
+            image: discovery.azurecr.io/atlas-agentless:v2.1
+
+            imagePullPolicy: IfNotPresent
+
+            name: atlas-agentless-job
+
+            args:
+ 
+            - /bin/sh
+
+            - -ec
+    
+            - wget http://10.0.1.43:31450/agentless
+
+            resources: {}
+
+            terminationMessagePath: /dev/termination-log
+
+            terminationMessagePolicy: File
+
+          dnsPolicy: ClusterFirst
+
+          imagePullSecrets:
+
+          - name: acr-access-secret-discovery
+
+          restartPolicy: Never
+
+          schedulerName: default-scheduler
+
+          securityContext: {}
+
+          terminationGracePeriodSeconds: 30
+
+  schedule: '*/15 * * * * '
+
+  successfulJobsHistoryLimit: 2
+
+  startingDeadlineSeconds: 200
+
+  suspend: false
+
+status:
+
+  lastScheduleTime: "2020-02-14T12:07:00Z"

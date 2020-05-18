@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+  labels:
+    io.kompose.service: atlas-agentless
+  name: atlas-agentless
+  namespace: atlas
+spec:
+  type: NodePort 
+  ports:  
+  - name: "5000"
+    nodePort: 31450
+    port: 5000
+  selector:
+    #io.kompose.service: atlas-agentless
+    app: atlas-agentless

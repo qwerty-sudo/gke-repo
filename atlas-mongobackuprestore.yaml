@@ -1,0 +1,45 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+  labels:
+    io.kompose.service: atlas-mongobackuprestore
+  name: atlas-mongobackuprestore
+  namespace: atlas
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        io.kompose.service: atlas-mongobackuprestore
+        app: atlas-mongobackuprestore
+    spec:
+      containers:
+      - env:
+        - name: MONGODB_HOST
+          value: atlas-mongodb
+        - name: MONGODB_PORT
+          value: "27017"
+        - name: MONGO_USER
+          value: atlascollectoruser
+        - name: MONGO_PASSWORD
+          value: YXRsYXNjb2xsZWN0b3J1c2VyCg==
+        - name: MONGO_DATABASE
+          value: atlas
+        - name: DATASOURCE_URI
+          value: "http://10.0.1.43:31376/importexport/vault/datasource"
+        - name: AUTH_SOURCE
+          value: VAULT
+        - name: VAULT_TOKEN
+          value: "s.T21L5KrpSDoIJwdbqnBAc41B"
+        image: discovery.azurecr.io/atlas-mongobackupandrestore:v4
+        name: atlas-mongobackupandrestore
+        ports:
+        - containerPort: 8002
+        resources: {}
+      imagePullSecrets:
+      - name: acr-access-secret-discovery
+      restartPolicy: Always
+
+

@@ -1,0 +1,43 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+  labels:
+    io.kompose.service: atlas-pgbackuprestore
+  name: atlas-pgbackuprestore
+  namespace: atlas
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        io.kompose.service: atlas-pgbackuprestore
+        app: atlas-pgbackuprestore
+    spec:
+      containers:
+      - env:
+        - name: POSTGRES_HOST
+          value: atlas-postgresql.atlas.svc.cluster.local
+        - name: POSTGRES_PORT
+          value: "5432"
+        - name: POSTGRES_PASSWORD
+          value: ANqtHVIgf0
+        - name: POSTGRES_USER
+          value: postgres
+        - name: POSTGRES_DATABASE
+          value: atlas
+        - name: DATASOURCE_URI
+          value: "http://10.0.1.43:31376/importexport/vault/datasource"
+        - name: AUTH_SOURCE
+          value: DB
+        - name: VAULT_TOKEN
+          value: s.T21L5KrpSDoIJwdbqnBAc41B
+        image: discovery.azurecr.io/atlas-pgbackupandrestore:v9
+        name: atlas-pgbackuprestore
+        ports:
+        - containerPort: 8001
+        resources: {}
+      imagePullSecrets:
+      - name: acr-access-secret-discovery
+      restartPolicy: Always

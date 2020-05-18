@@ -1,0 +1,35 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+  labels:
+    io.kompose.service: atlas-importexport
+  name: atlas-importexport
+  namespace: atlas
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        io.kompose.service: atlas-importexport
+        app: atlas-importexport
+    spec:
+      containers:
+      - env:
+        - name: API_URI
+          value: http://10.0.1.43:31359/api/discover/import/all
+        - name: VAULT_ADDR
+          value: http://10.0.1.43:30616 
+        - name: VAULT_TOKEN
+          value: s.T21L5KrpSDoIJwdbqnBAc41B
+        image: discovery.azurecr.io/atlas-importexport:v2.3
+        name: atlas-importexport
+        ports:
+        - containerPort: 9080
+        resources: {}
+      imagePullSecrets:
+      - name: acr-access-secret-discovery
+      restartPolicy: Always
+
+

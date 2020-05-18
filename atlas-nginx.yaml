@@ -1,0 +1,29 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+  labels:
+    io.kompose.service: atlas-nginx
+  name: atlas-nginx
+  namespace: atlas
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        io.kompose.service: atlas-nginx
+        app: atlas-nginx
+    spec:
+      containers:
+      - name: atlas-nginx
+        image: discovery.azurecr.io/atlasv2-nginx:v6 
+        ports:
+        - containerPort: 80
+        resources: {}
+      #imagePullPolicy: Always
+      imagePullSecrets:
+      - name: acr-access-secret-discovery
+      restartPolicy: Always
+
+

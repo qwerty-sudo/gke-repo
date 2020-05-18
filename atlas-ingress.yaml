@@ -1,0 +1,139 @@
+apiVersion: extensions/v1beta1
+
+kind: Ingress
+
+metadata:
+
+  name: atlas
+
+  annotations:
+
+    kubernetes.io/ingress.class: traefik
+
+    traefik.frontend.rule.type: PathPrefixStrip
+
+spec:
+
+  rules:
+
+  - host: atlas.vone
+
+    http:
+
+      paths:
+
+      - path: /
+
+        backend:
+
+          serviceName: atlas-nginx
+
+          servicePort: 80
+    
+      - path: /importexport
+
+        backend:
+
+          serviceName: atlas-importexport
+
+          servicePort: 9080     
+
+      - path: /api
+
+        backend:
+
+          serviceName: atlas-api
+
+          servicePort: 8000
+
+      - path: /postgresbr
+
+        backend:
+
+          serviceName: atlas-pgbackuprestore
+
+          servicePort: 8001
+
+      - path: /mongobr
+
+        backend:
+
+          serviceName: atlas-mongobackuprestore
+
+          servicePort: 8002
+
+      - path: /n2
+
+        backend:
+
+          serviceName: atlas-nginx2
+
+          servicePort: 80
+
+      - path: /api/launchInstance
+
+        backend:
+
+          serviceName: atlas-launchvm
+
+          servicePort: 7070
+
+      - path: /ra
+
+        backend:
+
+          serviceName: atlas-rabbitmq
+
+          servicePort: 15671
+
+
+
+  - host: atlas.vone
+
+    http:
+
+      paths:
+
+      - path: /
+
+        backend:
+
+          serviceName: atlas-launchvm
+
+          servicePort: 7070
+
+  - host: atlas.k3s.admin
+
+    http:
+
+      paths:
+
+      - path: /
+
+        backend:
+
+          serviceName: atlas-rabbitmq
+
+          servicePort: 15672
+
+  - host: atlas.k3s.admin
+
+    http:
+
+    paths:
+
+    - path: /agentless
+
+      backend:
+
+        serviceName: atlas-agentless
+
+        servicePort: 5000
+
+   
+
+  tls:
+
+    - secretName: atlas-vone-tls-cert
+
+

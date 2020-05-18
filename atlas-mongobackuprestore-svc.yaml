@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+  labels:
+    io.kompose.service: atlas-mongobackuprestore
+  name: atlas-mongobackuprestore
+  namespace: atlas
+spec:
+  type: NodePort 
+  ports:
+  - name: "8002"
+    #- port: 80
+    port: 8002
+    targetPort: 8002
+    protocol: TCP
+  selector:
+    app: atlas-mongobackuprestore

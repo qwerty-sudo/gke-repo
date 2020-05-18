@@ -1,0 +1,58 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+  labels:
+    io.kompose.service: atlas-launchvm
+    app.name: atlas-launchvm
+  name: atlas-launchvm
+  namespace: atlas-updated
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        io.kompose.service: atlas-launchvm
+        app.name: atlas-launchvm
+    spec:
+      containers:
+      - env:
+        - name: JWT_SECRET
+          value: myjwts3cr3t
+        - name: MONGO_DATABASE
+          value: atlas
+        - name: MONGO_HOST
+          value: atlas-mongodb
+        - name: MONGO_PASSWORD
+          value: "YXRsYXNjb2xsZWN0b3J1c2VyCg=="
+        - name: MONGO_PORT
+          value: "27017"
+        - name: MONGO_SOURCE_COLLECTION
+          value: AtlasAgentsMsg
+        - name: MONGO_TARGET_COLLECTION
+          value: AtlasDiscoveredData
+        - name: MONGO_USER
+          value: atlascollectoruser
+        - name: POSTGRES_DATABASE
+          value: atlas
+        - name: POSTGRES_HOST
+          value: atlas-postgres-postgresql
+        - name: POSTGRES_PASSWORD
+          value: "elXOzwz0Bh"
+        - name: POSTGRES_PORT
+          value: "5432"
+        - name: POSTGRES_USER
+          value: postgres
+        - name: TOKEN_EXPIRES_IN
+          value: "60000"
+        image: discovery.azurecr.io/atlas-launchvm:v1.4
+        name: atlas-launchvm
+        ports:
+        - containerPort: 7070
+        resources: {}
+      imagePullSecrets:
+      - name: acr-access-secret-discovery
+      restartPolicy: Always
+
+status: {}
+

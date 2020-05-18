@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+  labels:
+    io.kompose.service: atlas-api
+  name: atlas-api
+  namespace: atlas
+spec:
+  type: LoadBalancer 
+  ports:
+  - name: "80"
+    #- port: 80
+    port: 8000
+    targetPort: 3000
+  selector:
+    #io.kompose.service: atlas-api
+    app: atlas-api
+
