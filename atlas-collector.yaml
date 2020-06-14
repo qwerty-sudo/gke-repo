@@ -34,7 +34,7 @@ spec:
         - name: RABBIT_HOST
           value: atlas-rabbitmq.atlas.svc.cluster.local
         - name: RABBIT_PASS
-          value: mG9ozPhCVu
+          value: bBVW9mGBnX
         - name: RABBIT_PORT
           value: "5672"
         - name: RABBIT_PORT_SSL
