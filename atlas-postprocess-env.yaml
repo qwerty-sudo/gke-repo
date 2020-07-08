@@ -12,12 +12,12 @@ data:
   MONGO_DATABASE: atlas
   POSTGRES_PORT: "5432"
   POSTGRES_HOST: atlas-postgresql.atlas.svc.cluster.local
-  POSTGRES_PASSWORD: L0bFiOgWkq
+  POSTGRES_PASSWORD: QcNYhlsw68
   POSTGRES_USER: postgres
   POSTGRES_DATABASE: atlas
   QUEUE_NAME: AtlasAgentMessageQueue
   RABBIT_HOST: atlas-rabbitmq.atlas.svc.cluster.local
-  RABBIT_PASS: bBVW9mGBnX
+  RABBIT_PASS: kDU5CUIflG
   RABBIT_PORT: "5671"
   RABBIT_USER: user
   SOURCE_COLLECTION: AtlasAgentsMsg
