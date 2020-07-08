@@ -38,7 +38,7 @@ spec:
         - name: POSTGRES_HOST
           value: atlas-postgres-postgresql
         - name: POSTGRES_PASSWORD
-          value: L0bFiOgWkq
+          value: QcNYhlsw68
         - name: POSTGRES_PORT
           value: "5432"
         - name: POSTGRES_USER
